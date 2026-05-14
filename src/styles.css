@@ -55,7 +55,6 @@ button {
 .input-card,
 .result-card,
 .empty-card,
-.footer-card,
 .ad-banner {
   background: var(--card);
   border: 1px solid rgba(255, 255, 255, 0.7);
@@ -95,7 +94,6 @@ button {
 
 .hero-description,
 .intro-row p,
-.footer-card p,
 .empty-card p,
 .result-toolbar p {
   color: var(--muted);
@@ -103,13 +101,11 @@ button {
 }
 
 .input-card,
-.footer-card,
 .empty-card {
   padding: 26px;
 }
 
 .intro-row h2,
-.footer-card h2,
 .empty-card h2,
 .result-toolbar h2,
 .result-card h3 {
@@ -419,11 +415,6 @@ button {
   font-weight: 700;
 }
 
-.footer-guide {
-  display: grid;
-  gap: 20px;
-}
-
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -498,8 +489,7 @@ button {
   .hero-card,
   .input-card,
   .result-card,
-  .empty-card,
-  .footer-card {
+  .empty-card {
     padding: 20px;
     border-radius: 20px;
   }

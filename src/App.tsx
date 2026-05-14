@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { AdBanner } from "./components/AdBanner";
 import { AdInterstitialModal } from "./components/AdInterstitialModal";
 import { ScriptResult } from "./components/ScriptResult";
@@ -299,16 +300,7 @@ ${script.hashtags.join(" ")}`,
           )}
         </section>
 
-        <section className="footer-guide">
-          <div className="footer-card">
-            <h2>이 사이트는 이렇게 동작합니다</h2>
-            <p>
-              외부 유료 AI API 없이 프론트엔드 내부 템플릿과 랜덤 조합 로직만으로 결과를 생성합니다.
-              회원가입 없이 바로 사용 가능하고, 정적 사이트로 배포할 수 있게 구성했습니다.
-            </p>
-          </div>
-          <AdBanner label="페이지 하단 광고 영역" />
-        </section>
+        <AdBanner label="페이지 하단 광고 영역" />
       </main>
 
       <AdInterstitialModal
@@ -316,6 +308,7 @@ ${script.hashtags.join(" ")}`,
         onClose={closeRegenerateAd}
         onConfirm={confirmRegenerate}
       />
+      <Analytics />
     </div>
   );
 }
