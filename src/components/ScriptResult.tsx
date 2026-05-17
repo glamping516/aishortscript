@@ -1,11 +1,10 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import type { GeneratedResult } from "../types";
 
 interface ScriptResultProps {
   result: GeneratedResult;
   onCopyAll: () => Promise<boolean>;
   onRegenerate: () => void;
-  middleSlot?: ReactNode;
 }
 
 interface CopyState {
@@ -54,7 +53,7 @@ async function copyText(text: string) {
   await navigator.clipboard.writeText(text);
 }
 
-export function ScriptResult({ result, onCopyAll, onRegenerate, middleSlot }: ScriptResultProps) {
+export function ScriptResult({ result, onCopyAll, onRegenerate }: ScriptResultProps) {
   const [copyState, setCopyState] = useState<CopyState>({});
 
   const flashCopied = (key: string) => {
@@ -130,8 +129,6 @@ export function ScriptResult({ result, onCopyAll, onRegenerate, middleSlot }: Sc
           ))}
         </ul>
       </article>
-
-      {middleSlot}
 
       {result.scripts.map((script, index) => {
         const scriptText = `[대본 ${index + 1}]

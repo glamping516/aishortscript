@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
-import { AdBanner } from "./components/AdBanner";
-import { AdInterstitialModal } from "./components/AdInterstitialModal";
 import { ScriptResult } from "./components/ScriptResult";
 import { TopicAutocomplete } from "./components/TopicAutocomplete";
 import type { GeneratedResult, LengthOption, PlatformOption, ToneOption } from "./types";
@@ -46,7 +44,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<GeneratedResult | null>(null);
   const [recentTopics, setRecentTopics] = useState<string[]>([]);
-  const [isRegenerateAdOpen, setIsRegenerateAdOpen] = useState(false);
 
   useEffect(() => {
     const savedInputs = localStorage.getItem(STORAGE_KEYS.inputs);
@@ -162,19 +159,6 @@ ${script.hashtags.join(" ")}`,
     return true;
   };
 
-  const openRegenerateAd = () => {
-    setIsRegenerateAdOpen(true);
-  };
-
-  const closeRegenerateAd = () => {
-    setIsRegenerateAdOpen(false);
-  };
-
-  const confirmRegenerate = () => {
-    setIsRegenerateAdOpen(false);
-    runGeneration();
-  };
-
   return (
     <div className="page-shell">
       <main className="page">
@@ -275,8 +259,6 @@ ${script.hashtags.join(" ")}`,
           {error ? <p className="error-text">{error}</p> : null}
         </section>
 
-        <AdBanner label="입력 영역 아래 광고 영역" />
-
         <section className="content-section">
           {loading ? (
             <div className="empty-card empty-card--loading">
@@ -285,12 +267,7 @@ ${script.hashtags.join(" ")}`,
               <p>주제와 옵션에 맞는 제목, 썸네일 문구, 대본을 조합하고 있습니다.</p>
             </div>
           ) : result ? (
-            <ScriptResult
-              result={result}
-              onCopyAll={handleCopyAll}
-              onRegenerate={openRegenerateAd}
-              middleSlot={<AdBanner label="결과 영역 중간 광고 영역" />}
-            />
+            <ScriptResult result={result} onCopyAll={handleCopyAll} onRegenerate={() => runGeneration()} />
           ) : (
             <div className="empty-card">
               <h2>결과가 아직 없습니다</h2>
@@ -299,15 +276,8 @@ ${script.hashtags.join(" ")}`,
             </div>
           )}
         </section>
-
-        <AdBanner label="페이지 하단 광고 영역" />
       </main>
 
-      <AdInterstitialModal
-        open={isRegenerateAdOpen}
-        onClose={closeRegenerateAd}
-        onConfirm={confirmRegenerate}
-      />
       <Analytics />
     </div>
   );
